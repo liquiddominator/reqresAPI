@@ -65,7 +65,7 @@ class _UserListViewState extends State<UserListView> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(user == null ? 'Create User' : 'Update User'),
+        title: Text(user == null ? 'Crear Usuario' : 'Editar Usuario'),
         content: Form(
           key: formKey,
           child: SingleChildScrollView(
@@ -81,10 +81,10 @@ class _UserListViewState extends State<UserListView> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter an email';
+                      return 'Ingresa un email';
                     }
                     if (!value.contains('@')) {
-                      return 'Please enter a valid email';
+                      return 'Ingresa un email valido';
                     }
                     return null;
                   },
@@ -93,12 +93,12 @@ class _UserListViewState extends State<UserListView> {
                 TextFormField(
                   controller: firstNameController,
                   decoration: const InputDecoration(
-                    labelText: 'First Name',
+                    labelText: 'Nombre',
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a first name';
+                      return 'Ingresa un nombre';
                     }
                     return null;
                   },
@@ -107,12 +107,12 @@ class _UserListViewState extends State<UserListView> {
                 TextFormField(
                   controller: lastNameController,
                   decoration: const InputDecoration(
-                    labelText: 'Last Name',
+                    labelText: 'Apellido',
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Please enter a last name';
+                      return 'Ingresa un apellido';
                     }
                     return null;
                   },
@@ -124,7 +124,7 @@ class _UserListViewState extends State<UserListView> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Cancelar'),
           ),
           FilledButton(
             onPressed: () {
@@ -146,13 +146,13 @@ class _UserListViewState extends State<UserListView> {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text(user == null ? 'User created successfully' : 'User updated successfully'),
+                    content: Text(user == null ? 'Usuario creado' : 'Usuario actualizado'),
                     backgroundColor: Colors.green,
                   ),
                 );
               }
             },
-            child: Text(user == null ? 'Create' : 'Update'),
+            child: Text(user == null ? 'Crear' : 'Editar'),
           ),
         ],
       ),
@@ -163,12 +163,12 @@ class _UserListViewState extends State<UserListView> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete User'),
-        content: Text('Are you sure you want to delete ${user.firstName} ${user.lastName}?'),
+        title: const Text('Eliminar un usuario'),
+        content: Text('Seguro que quiere eliminar a ${user.firstName} ${user.lastName}?'),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
+            child: const Text('Cancelar'),
           ),
           FilledButton(
             onPressed: () {
@@ -176,7 +176,7 @@ class _UserListViewState extends State<UserListView> {
               Navigator.pop(context);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Text('User deleted successfully'),
+                  content: Text('Usuario eliminado'),
                   backgroundColor: Colors.green,
                 ),
               );
@@ -218,7 +218,7 @@ class _UserListViewState extends State<UserListView> {
                       // Selector de items por página
                       Row(
                         children: [
-                          const Text('Items per page: '),
+                          const Text('Usuarios por pagina: '),
                           DropdownButton<int>(
                             value: perPage,
                             items: perPageOptions.map((int value) {
@@ -269,7 +269,7 @@ class _UserListViewState extends State<UserListView> {
                       ),
                     ],
                   ),
-                  Text('Total users: $total', 
+                  Text('Usuarios totales: $total', 
                     style: Theme.of(context).textTheme.bodySmall),
                 ],
               ),
@@ -283,7 +283,7 @@ class _UserListViewState extends State<UserListView> {
                     onRefresh: _refreshUsers,
                     child: users.isEmpty
                         ? const Center(
-                            child: Text('No users found'),
+                            child: Text('Usuarios no encontrados'),
                           )
                         : ListView.builder(
                             itemCount: users.length,
@@ -314,12 +314,12 @@ class _UserListViewState extends State<UserListView> {
                                       IconButton(
                                         icon: const Icon(Icons.edit),
                                         onPressed: () => _showUserDialog(user),
-                                        tooltip: 'Edit user',
+                                        tooltip: 'Editar usuario',
                                       ),
                                       IconButton(
                                         icon: const Icon(Icons.delete),
                                         onPressed: () => _showDeleteDialog(user),
-                                        tooltip: 'Delete user',
+                                        tooltip: 'Eliminar usuario',
                                       ),
                                     ],
                                   ),
@@ -334,7 +334,7 @@ class _UserListViewState extends State<UserListView> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showUserDialog(),
         icon: const Icon(Icons.add),
-        label: const Text('Add User'),
+        label: const Text('Agregar usuario'),
       ),
     );
   }
