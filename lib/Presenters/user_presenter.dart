@@ -3,7 +3,7 @@ import 'package:reqres_api_andres/Services/api_service.dart';
 
 class UserPresenter {
   final ApiService _apiService;
-  Function(List<User>, int, int, int, int)? onUsersUpdated; // Modificado para incluir metadata
+  Function(List<User>, int, int, int, int)? onUsersUpdated;
   Function(String)? onError;
 
   UserPresenter(this._apiService);
@@ -25,8 +25,9 @@ class UserPresenter {
 
   Future<void> createUser(User user) async {
     try {
-      await _apiService.createUser(user);
-      loadUsers(); // Reload list after creation
+      if (await _apiService.createUser(user)) {
+        await loadUsers(page: 1); // Volver a la primera página después de crear
+      }
     } catch (e) {
       onError?.call(e.toString());
     }
@@ -34,8 +35,9 @@ class UserPresenter {
 
   Future<void> updateUser(int id, User user) async {
     try {
-      await _apiService.updateUser(id, user);
-      loadUsers(); // Reload list after update
+      if (await _apiService.updateUser(id, user)) {
+        await loadUsers(); // Recargar la lista actual después de actualizar
+      }
     } catch (e) {
       onError?.call(e.toString());
     }
@@ -44,7 +46,7 @@ class UserPresenter {
   Future<void> deleteUser(int id) async {
     try {
       await _apiService.deleteUser(id);
-      loadUsers(); // Reload list after deletion
+      await loadUsers(); // Recargar la lista después de eliminar
     } catch (e) {
       onError?.call(e.toString());
     }

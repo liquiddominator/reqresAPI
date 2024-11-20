@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:reqres_api_andres/Models/Users.dart';
 import 'package:http/http.dart' as http;
 
@@ -25,27 +24,27 @@ class ApiService {
     }
   }
 
-  Future<User> createUser(User user) async {
+  Future<bool> createUser(User user) async {
     final response = await http.post(
       Uri.parse('$baseUrl/users'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(user.toJson()),
     );
     if (response.statusCode == 201) {
-      return User.fromJson(json.decode(response.body));
+      return true;
     } else {
       throw Exception('Failed to create user');
     }
   }
 
-  Future<User> updateUser(int id, User user) async {
+  Future<bool> updateUser(int id, User user) async {
     final response = await http.put(
       Uri.parse('$baseUrl/users/$id'),
       headers: {'Content-Type': 'application/json'},
       body: json.encode(user.toJson()),
     );
     if (response.statusCode == 200) {
-      return User.fromJson(json.decode(response.body));
+      return true;
     } else {
       throw Exception('Failed to update user');
     }
